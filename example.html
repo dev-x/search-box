@@ -1,0 +1,85 @@
+<script src="index.js"></script>
+<style>
+
+#seach-box {
+    width: 200px;
+    position: relative;
+}
+
+#seach-box input{
+    width: 100%;
+    height: 20px;
+}
+
+#seach-box #suggestions{
+    width: 100%;
+    display: none;
+    position: absolute;
+    top: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+#seach-box #suggestions p{
+    padding: 5px;
+    cursor: pointer;
+    margin: 0;
+}
+
+#seach-box #suggestions p:hover{
+    padding: 5px;
+    background-color: #AAAACC;
+}
+
+</style>
+<div id="seach-box">
+<input id="search" />
+<div id="suggestions">
+    
+</div>
+</div>
+some text here and here and here
+<script>
+
+    function myClick(e){
+        console.log(e);
+        console.log(e.target.innerHTML);
+        suggestions.style.display = 'none';
+    }
+    
+    var suggestions = document.getElementById("suggestions");
+    
+    window.onclick = function(event) {
+      if (!event.target.matches('#suggestions')) {
+/*
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+*/
+        suggestions.style.display = 'none';
+      }
+    }     
+    
+    searchBox = new SearchBox({
+        inputId: 'search',
+        action: function(){
+            console.log('fire', new Date());
+            
+            suggestions.innerHTML = '';
+            var items = ['cat', 'dog', 'horse'];
+            items.forEach(function(item){
+                var newEl = document.createElement('p');
+                newEl.innerHTML = item;
+                newEl.onclick = myClick;
+                suggestions.appendChild(newEl);
+            });
+            suggestions.style.display = 'block';
+        }
+    });
+
+</script>
